@@ -1,6 +1,5 @@
 % NIT Patna Resume Template v2.1 - MODIFIED FOR ATS
-% Author: Pavan Kumar Dubasi
-% (Optimized for ATS-friendliness)
+% Optimized for ATS-friendliness & Crash-Proofing
 
 \documentclass[a4paper,10.8pt]{article}
 
@@ -22,7 +21,7 @@
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{booktabs}
-\usepackage{fontawesome5} % Added for Icons
+\usepackage{fontawesome5} 
 
 % Color definitions
 \definecolor{darkblue}{RGB}{0,0,139}
@@ -82,17 +81,13 @@
     \end{tabular*}\vspace{-2pt}
 }
 
-\newcommand{\resumeProject}[4]{
+\newcommand{\resumeProject}[2]{
   \item
     \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
       \textbf{#1} & {} \\
       \textit{#2} & {} \\
     \end{tabular*}\vspace{-2pt}
 }
-
-\newcommand{\resumeHeadingSkillStart}{\begin{itemize}[left=0pt,label={},topsep=0pt,parsep=1pt]}
-\newcommand{\resumeHeadingSkillEnd}{\end{itemize}}
-\newcommand{\resumeSubItem}[2]{\item \textbf{#1} #2}
 
 % --- PERSONAL INFORMATION ---
 \newcommand{\name}{\VAR{ personal_info.name }}
@@ -116,14 +111,17 @@
 \vspace{-2mm}
 
 % -------------------- KEY SUMMARY --------------------
+\BLOCK{ if summary }
 \section{\textbf{Key Summary}}
 \vspace{0.5mm}
 \noindent
 \VAR{ summary }
 \normalsize
 \vspace{-2mm}
+\BLOCK{ endif }
 
 % -------------------- EXPERIENCE --------------------
+\BLOCK{ if experience }
 \section{\textbf{Experience}}
 \vspace{1mm}
 \resumeSubHeadingListStart
@@ -132,17 +130,24 @@
 \resumeSubheading
     {\VAR{ job.company }}{\VAR{ job.location }}
     {\VAR{ job.role }}{\VAR{ job.duration }}
-\resumeItemListStart
-    \BLOCK{ for point in job.points }
-    \item \VAR{ point }
-    \BLOCK{ endfor }
-\resumeItemListEnd
+    
+    % SAFETY CHECK: Only create list if points exist
+    \BLOCK{ if job.points }
+    \resumeItemListStart
+        \BLOCK{ for point in job.points }
+        \item \VAR{ point }
+        \BLOCK{ endfor }
+    \resumeItemListEnd
+    \BLOCK{ endif }
+    
 \BLOCK{ endfor }
 
 \resumeSubHeadingListEnd
 \vspace{-4mm}
+\BLOCK{ endif }
 
 % -------------------- PROJECTS --------------------
+\BLOCK{ if projects }
 \section{\textbf{Projects}}
 \vspace{-0.4mm}
 \resumeSubHeadingListStart
@@ -151,18 +156,24 @@
 \resumeProject
     {\VAR{ proj.title }}
     {\VAR{ proj.technologies }}
-    {}{}
-\resumeItemListStart
-    \BLOCK{ for point in proj.points }
-    \item \VAR{ point }
-    \BLOCK{ endfor }
-\resumeItemListEnd
+    
+    % SAFETY CHECK: Only create list if points exist
+    \BLOCK{ if proj.points }
+    \resumeItemListStart
+        \BLOCK{ for point in proj.points }
+        \item \VAR{ point }
+        \BLOCK{ endfor }
+    \resumeItemListEnd
+    \BLOCK{ endif }
+    
 \BLOCK{ endfor }
 
 \resumeSubHeadingListEnd
 \vspace{-3mm}
+\BLOCK{ endif }
 
 % -------------------- EDUCATION --------------------
+\BLOCK{ if education }
 \section{\textbf{Education}}
 \vspace{-0.4mm}
 \noindent
@@ -174,23 +185,27 @@
 \BLOCK{ endfor }
 \end{tabularx}
 \vspace{-3mm}
+\BLOCK{ endif }
 
 
-% -------------------- SKILLS (ALIGNED) --------------------
+% -------------------- SKILLS --------------------
+\BLOCK{ if skills }
 \section{\textbf{Skills}}
 \vspace{1mm}
 \noindent
 \begin{tabularx}{\textwidth}{@{} l @{\hspace{8pt}} X @{}}
-\textbf{Data Analytics \& BI} & : \VAR{ skills.analytics } \\
-\textbf{ML \& AI} & : \VAR{ skills.ml_ai } \\
-\textbf{Languages} & : \VAR{ skills.languages } \\
-\textbf{Web Technologies} & : \VAR{ skills.web } \\
-\textbf{Tools \& Platforms} & : \VAR{ skills.tools } \\
+\BLOCK{ if skills.analytics } \textbf{Data Analytics \& BI} & : \VAR{ skills.analytics } \\ \BLOCK{ endif }
+\BLOCK{ if skills.ml_ai } \textbf{ML \& AI} & : \VAR{ skills.ml_ai } \\ \BLOCK{ endif }
+\BLOCK{ if skills.languages } \textbf{Languages} & : \VAR{ skills.languages } \\ \BLOCK{ endif }
+\BLOCK{ if skills.web } \textbf{Web Technologies} & : \VAR{ skills.web } \\ \BLOCK{ endif }
+\BLOCK{ if skills.tools } \textbf{Tools \& Platforms} & : \VAR{ skills.tools } \\ \BLOCK{ endif }
 \end{tabularx}
 \vspace{-3mm}
+\BLOCK{ endif }
 
 
 % -------------------- ACHIEVEMENTS --------------------
+\BLOCK{ if achievements }
 \section{\textbf{Achievements}}
 \vspace{1mm}
 \normalsize
@@ -202,8 +217,10 @@
 \end{tabularx}
 \normalsize
 \vspace{-2mm}
+\BLOCK{ endif }
 
 % -------------------- POSITIONS OF RESPONSIBILITY --------------------
+\BLOCK{ if positions }
 \section{\textbf{Positions of Responsibility}}
 \vspace{1mm}
 \normalsize
@@ -215,5 +232,6 @@
 \end{tabularx}
 \normalsize
 \vspace{-4mm}
+\BLOCK{ endif }
 
 \end{document}
