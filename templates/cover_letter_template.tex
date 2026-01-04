@@ -1,0 +1,64 @@
+% Cover Letter Template - Matches Resume Style
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{geometry}
+
+% Page formatting
+\geometry{left=2cm, top=1.5cm, right=2cm, bottom=2cm}
+\urlstyle{same}
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% --- PERSONAL INFO COMMANDS ---
+\newcommand{\name}{\VAR{ personal_info.name }}
+\newcommand{\phone}{\VAR{ personal_info.phone }}
+\newcommand{\emaila}{\VAR{ personal_info.email }}
+\newcommand{\linkedin}{\VAR{ personal_info.linkedin }}
+\newcommand{\websiteurl}{\VAR{ personal_info.github }}
+
+\begin{document}
+
+% --- HEADER (Matches Resume) ---
+\begin{center}
+    \textbf{\Huge \name} \\[2mm]
+    \href{mailto:\emaila}{\faEnvelope\ \emaila} \quad\textbar\quad
+    \faPhone\ +91-\phone \quad\textbar\quad
+    \href{https://www.linkedin.com/in/\linkedin}{\faLinkedin\ LinkedIn} \quad\textbar\quad
+    \href{\websiteurl}{\faGlobe\ Portfolio}
+\end{center}
+\vspace{4mm}
+\hrule
+\vspace{6mm}
+
+% --- LETTER CONTENT ---
+\today \\[1em]
+
+\textbf{To The Hiring Manager,} \\
+\textbf{\VAR{ company_name }} \\
+\VAR{ job_location } \\[2em]
+
+\textbf{Subject: Application for \VAR{ job_role }} \\[1em]
+
+Dear Hiring Manager, \\[1em]
+
+% The Body (We treat paragraphs as a list or raw text block)
+\VAR{ letter_body }
+
+\vspace{2em}
+Sincerely, \\[1em]
+
+\textbf{\name}
+
+\end{document} 

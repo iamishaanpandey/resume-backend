@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+groq
+jinja2
+pypdf
+httpx
+requests
+beautifulsoup4

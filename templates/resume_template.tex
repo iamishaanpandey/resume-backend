@@ -1,0 +1,219 @@
+% NIT Patna Resume Template v2.1 - MODIFIED FOR ATS
+% Author: Pavan Kumar Dubasi
+% (Optimized for ATS-friendliness)
+
+\documentclass[a4paper,10.8pt]{article}
+
+% Package imports
+\usepackage{latexsym}
+\usepackage{xcolor}
+\usepackage{ragged2e}
+\usepackage[empty]{fullpage}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage[T1]{fontenc}
+\usepackage{cfr-lm}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{fontawesome5} % Added for Icons
+
+% Color definitions
+\definecolor{darkblue}{RGB}{0,0,139}
+
+% Page layout
+\geometry{left=1.4cm, top=0.8cm, right=1.2cm, bottom=1cm}
+\setlength{\multicolsep}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\footskip}{4.08pt}
+
+% Hyperlink setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=darkblue,
+    filecolor=darkblue,
+    urlcolor=darkblue,
+}
+
+% URL style
+\urlstyle{same}
+
+% Text alignment
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% --- ATS-FRIENDLY SECTION FORMATTING ---
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-7pt}]
+
+% Column types
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}%
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+\newcolumntype{C}{>{\centering\arraybackslash}X}%
+
+% --- Custom commands ---
+\newcommand{\resumeItem}[2]{
+  \item{
+    \textbf{#1}{\hspace{0.5mm}#2 \vspace{-0.5mm}}
+  }
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[left=0pt,label={},topsep=0pt,parsep=1pt]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[left=12pt,label=\textbullet,topsep=0pt,parsep=1pt,itemsep=1pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+\newcommand{\resumeSubheading}[4]{
+  \item
+    \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{#4} \\
+      \textit{#3} & \textit{#2} \\
+    \end{tabular*}\vspace{-2pt}
+}
+
+\newcommand{\resumeProject}[4]{
+  \item
+    \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & {} \\
+      \textit{#2} & {} \\
+    \end{tabular*}\vspace{-2pt}
+}
+
+\newcommand{\resumeHeadingSkillStart}{\begin{itemize}[left=0pt,label={},topsep=0pt,parsep=1pt]}
+\newcommand{\resumeHeadingSkillEnd}{\end{itemize}}
+\newcommand{\resumeSubItem}[2]{\item \textbf{#1} #2}
+
+% --- PERSONAL INFORMATION ---
+\newcommand{\name}{\VAR{ personal_info.name }}
+\newcommand{\phone}{\VAR{ personal_info.phone }}
+\newcommand{\emaila}{\VAR{ personal_info.email }}
+\newcommand{\linkedin}{\VAR{ personal_info.linkedin }}
+\newcommand{\websiteurl}{\VAR{ personal_info.github }}
+
+\begin{document}
+\fontfamily{cmr}\selectfont
+
+%---------- HEADING -----------------
+\begin{center}
+    \textbf{\LARGE \name} \\[2mm]
+    \href{mailto:\emaila}{\faEnvelope\ \emaila} \quad\textbar\quad
+    \faPhone\ +91-\phone \quad\textbar\quad
+    \href{https://www.linkedin.com/in/\linkedin}{\faLinkedin\ LinkedIn Profile} \quad\textbar\quad
+    \href{\websiteurl}{\faGlobe\ Portfolio/GitHub} \\[1mm]
+    \VAR{ personal_info.university }
+\end{center}
+\vspace{-2mm}
+
+% -------------------- KEY SUMMARY --------------------
+\section{\textbf{Key Summary}}
+\vspace{0.5mm}
+\noindent
+\VAR{ summary }
+\normalsize
+\vspace{-2mm}
+
+% -------------------- EXPERIENCE --------------------
+\section{\textbf{Experience}}
+\vspace{1mm}
+\resumeSubHeadingListStart
+
+\BLOCK{ for job in experience }
+\resumeSubheading
+    {\VAR{ job.company }}{\VAR{ job.location }}
+    {\VAR{ job.role }}{\VAR{ job.duration }}
+\resumeItemListStart
+    \BLOCK{ for point in job.points }
+    \item \VAR{ point }
+    \BLOCK{ endfor }
+\resumeItemListEnd
+\BLOCK{ endfor }
+
+\resumeSubHeadingListEnd
+\vspace{-4mm}
+
+% -------------------- PROJECTS --------------------
+\section{\textbf{Projects}}
+\vspace{-0.4mm}
+\resumeSubHeadingListStart
+
+\BLOCK{ for proj in projects }
+\resumeProject
+    {\VAR{ proj.title }}
+    {\VAR{ proj.technologies }}
+    {}{}
+\resumeItemListStart
+    \BLOCK{ for point in proj.points }
+    \item \VAR{ point }
+    \BLOCK{ endfor }
+\resumeItemListEnd
+\BLOCK{ endfor }
+
+\resumeSubHeadingListEnd
+\vspace{-3mm}
+
+% -------------------- EDUCATION --------------------
+\section{\textbf{Education}}
+\vspace{-0.4mm}
+\noindent
+\begin{tabularx}{\textwidth}{@{} L r @{}}
+\BLOCK{ for edu in education }
+\textbf{\VAR{ edu.institution }} \hfill \textbf{\VAR{ edu.year }} \\
+\textit{\VAR{ edu.degree }} \hfill \textit{\VAR{ edu.score }} \\
+\addlinespace[5pt]
+\BLOCK{ endfor }
+\end{tabularx}
+\vspace{-3mm}
+
+
+% -------------------- SKILLS (ALIGNED) --------------------
+\section{\textbf{Skills}}
+\vspace{1mm}
+\noindent
+\begin{tabularx}{\textwidth}{@{} l @{\hspace{8pt}} X @{}}
+\textbf{Data Analytics \& BI} & : \VAR{ skills.analytics } \\
+\textbf{ML \& AI} & : \VAR{ skills.ml_ai } \\
+\textbf{Languages} & : \VAR{ skills.languages } \\
+\textbf{Web Technologies} & : \VAR{ skills.web } \\
+\textbf{Tools \& Platforms} & : \VAR{ skills.tools } \\
+\end{tabularx}
+\vspace{-3mm}
+
+
+% -------------------- ACHIEVEMENTS --------------------
+\section{\textbf{Achievements}}
+\vspace{1mm}
+\normalsize
+\noindent
+\begin{tabularx}{\textwidth}{@{} L >{\raggedleft\arraybackslash}p{2cm} @{}}
+\BLOCK{ for ach in achievements }
+\VAR{ ach.description } & \VAR{ ach.year } \\
+\BLOCK{ endfor }
+\end{tabularx}
+\normalsize
+\vspace{-2mm}
+
+% -------------------- POSITIONS OF RESPONSIBILITY --------------------
+\section{\textbf{Positions of Responsibility}}
+\vspace{1mm}
+\normalsize
+\noindent
+\begin{tabularx}{\textwidth}{@{} L >{\raggedleft\arraybackslash}p{2.6cm} @{}}
+\BLOCK{ for pos in positions }
+\textbf{\VAR{ pos.role }}, \VAR{ pos.organization } & \VAR{ pos.year } \\
+\BLOCK{ endfor }
+\end{tabularx}
+\normalsize
+\vspace{-4mm}
+
+\end{document}
